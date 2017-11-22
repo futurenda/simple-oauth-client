@@ -1,0 +1,24 @@
+{
+  "name": "simple-oauth-client",
+  "version": "0.1.0",
+  "description": "Simple OAuth 2.0 Client Flow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/futurenda/simple-oauth-client.git"
+  },
+  "keywords": [
+    "oauth",
+    "client",
+    "oauth2"
+  ],
+  "author": "Futurenda Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/futurenda/simple-oauth-client/issues"
+  },
+  "homepage": "https://github.com/futurenda/simple-oauth-client#readme"
+}
