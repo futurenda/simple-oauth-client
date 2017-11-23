@@ -32,7 +32,7 @@ export default function oauth(endpoint, {
     // Required params
     client_id,
     // Optional params
-    scopes,
+    scope,
     state = Math.random().toString(32).substr(2),
     display = 'popup',
     prompt = 'consent',
@@ -48,11 +48,11 @@ export default function oauth(endpoint, {
     if (!client_id) throw new Error('OAuth `client_id` must be provided')
     if (popupWindow) throw new Error("Previous OAuth flow hasn't finished")
 
-    if (Array.isArray(scopes)) scopes = scopes.join(' ')
+    if (Array.isArray(scope)) scope = scope.join(' ')
 
     let options = {
         client_id,
-        scopes,
+        scope,
         display,
         prompt,
         state,

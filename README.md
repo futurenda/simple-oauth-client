@@ -17,53 +17,56 @@ I don't like adding hundreds of KBs of vendor SDKs (Google/Facebook/Twitter/etc.
 The lib consists of two parts:
 1. Import and use the OAuth client in the main script
 
-```js
-// In the js that initiates the OAuth flow
-import oauth from 'simple-oauth-client'
+    ```js
+    // In the js that initiates the OAuth flow
+    import oauth from 'simple-oauth-client'
 
-oauth(
-    endpoint, // oauth endpoint
-    {
-        // oauth parameters, check vendor(google/facebook/twitter/etc.) docs
-        // required param:
-        client_id, // client id of your application, check vendor docs
-        // typical params:
-        scopes, // space delimited string
-        redirect_uri, // redirect
-        response_type, // (used by Google)
-        // and others
-    },
-    {
-        // Popup window features
-        popupHeight,
-        popupWidth
-    }
-)
-.then(response => {
-    // do things with token, e.g. send it to backend
-})
-.catch(e => {
-    // errors, e.g. user cancelled oauth, or errors from vendor
-})
-```
-For details of oauth parameters please refer to vendor docs
+    oauth(
+        endpoint, // oauth endpoint
+        {
+            // oauth parameters, check vendor(google/facebook/twitter/etc.) docs
+            // required param:
+            client_id, // client id of your application, check vendor docs
+            // typical params:
+            scope, // space delimited string
+            redirect_uri, // redirect
+            response_type, // (used by Google)
+            // and others
+        },
+        {
+            // Popup window features
+            popupHeight,
+            popupWidth
+        }
+    )
+    .then(response => {
+        // do things with token, e.g. send it to backend
+    })
+    .catch(e => {
+        // errors, e.g. user cancelled oauth, or errors from vendor
+    })
+    ```
+    For details of oauth parameters please refer to vendor docs
 
 2. Import 'simple-oauth-client/popup' in your `redirect_uri` page:
 
-```js
-// In the js of `redirect_uri` page
-import 'simple-oauth-client/popup'
-```
+    ```js
+    // In the js of `redirect_uri` page
+    import 'simple-oauth-client/popup'
+    ```
 
 3. If your app is an SPA you can simply import both in your script:
 
-```js
-import oauth from 'simple-oauth-client'
-import 'simple-oauth-client/popup'
-oauth(...)
-```
+    ```js
+    import oauth from 'simple-oauth-client'
+    import 'simple-oauth-client/popup'
+    oauth(endpoint, {
 
-So you don't need to serve a page just for `redirect_uri`
+        redirect_uri: location.href
+    })
+    ```
+
+    And set `redirect_uri` to `location.href`, so you don't need to serve a page just for `redirect_uri`
 
 
 ## What it works with
