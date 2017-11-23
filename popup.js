@@ -9,6 +9,8 @@ import {
     EVENT_OAUTH_RESULT
 } from './events'
 
+import { fixVendorDecodedCommaInState } from './util'
+
 if (typeof window !== 'undefined') {
     if (window.opener && window.opener !== window) {
         /**
@@ -25,7 +27,9 @@ if (typeof window !== 'undefined') {
             /**
              * Verify if `state`(encodeURIComponent-ed) matches oauth result's
              */
-            if (oauthResult.indexOf(encodedState) === -1) {
+            if (oauthResult.indexOf(encodedState) === -1 &&
+                fixVendorDecodedCommaInState(oauthResult).indexOf(encodedState) === -1
+            ) {
                 let error = 'WARNING: Wrong state detected! Your browser is probably running malicious plugins or extensions trying to steal your auth token.'
                 alert(error)
                 throw new Error(error)
