@@ -12,6 +12,8 @@ import {
 import { fixVendorDecodedCommaInState } from './util'
 
 if (typeof window !== 'undefined') {
+    let { hash, search } = location
+    let oauthResult = hash || search
     if (window.opener && window.opener !== window) {
         /**
          * Request opener's origin, to send oauth result back
@@ -23,7 +25,6 @@ if (typeof window !== 'undefined') {
          */
         window.addEventListener('message', ({ data: { type, origin, encodedState } = {} }) => {
             if (type !== EVENT_PROVIDE_OPENER_ORIGIN) return
-            let oauthResult = location.hash || location.search
             /**
              * Verify if `state`(encodeURIComponent-ed) matches oauth result's
              */
@@ -34,11 +35,7 @@ if (typeof window !== 'undefined') {
                 alert(error)
                 throw new Error(error)
             }
-            window.opener.postMessage({
-                type: EVENT_OAUTH_RESULT,
-                hash: location.hash,
-                search: location.search
-            }, origin)
+            window.opener.postMessage({ type: EVENT_OAUTH_RESULT, hash, search }, origin)
         })
     }
 }
