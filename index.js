@@ -24,7 +24,7 @@ import {
     EVENT_OAUTH_RESULT
 } from './events'
 
-import { fixVendorDecodedCommaInState } from './util'
+import { fixWronglyDecoded } from './util'
 
 let popupWindow, pollInterval
 
@@ -134,7 +134,7 @@ export default function oauth(endpoint, {
             else if (type === EVENT_OAUTH_RESULT) {
                 let result = parseParams(hash || search)
                 if (encodedState !== result.state &&
-                    encodedState !== fixVendorDecodedCommaInState(result.state)) return
+                    encodedState !== fixWronglyDecoded(result.state)) return
 
                 delete result.state
                 result.error ? reject(result) : resolve(result)
