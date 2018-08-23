@@ -31,8 +31,7 @@ if (typeof window !== 'undefined') {
             if (oauthResult.indexOf(encodedState) === -1 &&
                 fixWronglyDecoded(oauthResult).indexOf(encodedState) === -1
             ) {
-                let error = 'WARNING: Wrong state detected! Your browser is probably running malicious plugins or extensions trying to steal your auth token.'
-                alert(error)
+                let error = 'WARNING: Wrong state detected!'
                 throw new Error(error)
             }
             window.opener.postMessage({ type: EVENT_OAUTH_RESULT, hash, search }, origin)
